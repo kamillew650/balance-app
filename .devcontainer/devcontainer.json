@@ -2,12 +2,18 @@
   "name": "Balance app",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceFolder": "/balance",
 
   "customizations": {
     "vscode": {
       "extensions": ["streetsidesoftware.code-spell-checker"]
     }
   },
-  "forwardPorts": [3000]
+  "containerEnv": {
+    "SHELL": "/bin/bash"
+  },
+  "forwardPorts": [5432],
+  "postCreateCommand": "sudo chown -R node:node /balance || true && pnpm install --frozen-lockfile",
+
+  "remoteUser": "node"
 }
